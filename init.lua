@@ -15,10 +15,21 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- Block arrows keys in normal operations
+vim.keymap.set("n", "<Up>", "<nop>")
+vim.keymap.set("n", "<Down>", "<nop>")
+vim.keymap.set("n", "<Left>", "<nop>")
+vim.keymap.set("n", "<Right>", "<nop>")
+
+-- Move a line up or down
+vim.keymap.set("n", "∆", ":m .+1<CR>==") -- Option+j
+vim.keymap.set("n", "˚", ":m .-2<CR>==") -- Option+k
 
 require("lazy").setup("plugins", {
   install = { colorscheme = { "tokyonight" } },
