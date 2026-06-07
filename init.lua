@@ -31,6 +31,30 @@ vim.keymap.set("n", "<Right>", "<nop>")
 vim.keymap.set("n", "∆", ":m .+1<CR>==") -- Option+j
 vim.keymap.set("n", "˚", ":m .-2<CR>==") -- Option+k
 
+-- Auto float diagnostic on cursor hold
+vim.diagnostic.config({
+  virtual_text = true, -- inline error text on the line
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = true,
+  },
+})
+
+-- Auto open float when cursor rests on error line
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false })
+  end,
+})
+
+-- Controls how long before CursorHold fires (ms)
+vim.o.updatetime = 500
+
 require("lazy").setup("plugins", {
   install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true },
