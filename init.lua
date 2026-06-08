@@ -55,6 +55,8 @@ vim.api.nvim_create_autocmd("CursorHold", {
 -- Controls how long before CursorHold fires (ms)
 vim.o.updatetime = 500
 
+vim.o.exrc = true
+
 require("lazy").setup("plugins", {
   install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true },
