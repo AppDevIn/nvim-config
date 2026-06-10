@@ -6,7 +6,7 @@ return {
     opts = {
       keymap = {
         preset = "default",
-        ["<S-Tab>"] = { "accept", "fallback" },
+        ["<Tab>"] = { "accept", "fallback" },
         ["<CR>"] = { "fallback" },
       },
       appearance = { nerd_font_variant = "mono" },
