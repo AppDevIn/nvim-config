@@ -30,6 +30,8 @@ vim.keymap.set("n", "<Right>", "<nop>")
 -- Move a line up or down
 vim.keymap.set("n", "∆", ":m .+1<CR>==") -- Option+j
 vim.keymap.set("n", "˚", ":m .-2<CR>==") -- Option+k
+vim.keymap.set("v", "∆", ":m '>+1<CR>gv=gv") -- Option+j
+vim.keymap.set("v", "˚", ":m '<-2<CR>gv=gv") -- Option+k
 
 -- Auto float diagnostic on cursor hold
 vim.diagnostic.config({
