@@ -11,14 +11,16 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "ts_ls", "vimls" },
+        ensure_installed = { "lua_ls", "basedpyright", "ts_ls", "vimls", "clangd" },
       })
     end,
   },
   {
     "neovim/nvim-lspconfig",
     config = function()
+      local caps = require("blink.cmp").get_lsp_capabilities()
       vim.lsp.config("lua_ls", {
+        capabilities = caps,
         settings = {
           Lua = {
             diagnostics = { globals = { "vim" } },
@@ -26,10 +28,11 @@ return {
           },
         },
       })
-      vim.lsp.config("pyright", {})
-      vim.lsp.config("vimls", {})
-      vim.lsp.config("ts_ls", {})
-      vim.lsp.enable({ "lua_ls", "pyright", "vimls", "ts_ls" })
+      vim.lsp.config("basedpyright", { capabilities = caps })
+      vim.lsp.config("clangd", { capabilities = caps })
+      vim.lsp.config("vimls", { capabilities = caps })
+      vim.lsp.config("ts_ls", { capabilities = caps })
+      vim.lsp.enable({ "lua_ls", "basedpyright", "vimls", "ts_ls", "clangd" })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
