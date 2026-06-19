@@ -5,6 +5,7 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set number")
 vim.cmd("set relativenumber")
 vim.opt.shortmess:append("S")
+vim.opt.clipboard = "unnamedplus"
 vim.opt.cursorline = true
 vim.api.nvim_set_hl(0, "CursorLineNr", { bold = true, fg = "#f9e2af" })
 

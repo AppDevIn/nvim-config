@@ -2,6 +2,9 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  keys = {
+    { "<C-t>", function() Snacks.terminal.toggle() end, desc = "Toggle floating terminal" },
+  },
   ---@type snacks.Config
   opts = {
     -- your configuration comes here
