@@ -33,6 +33,12 @@ vim.keymap.set("n", "˚", ":m .-2<CR>==") -- Option+k
 vim.keymap.set("v", "∆", ":m '>+1<CR>gv=gv") -- Option+j
 vim.keymap.set("v", "˚", ":m '<-2<CR>gv=gv") -- Option+k
 
+-- Move to different window
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+
 -- Auto float diagnostic on cursor hold
 vim.diagnostic.config({
   virtual_text = true, -- inline error text on the line
