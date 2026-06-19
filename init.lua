@@ -66,7 +66,7 @@ vim.o.updatetime = 500
 vim.o.exrc = true
 
 require("lazy").setup("plugins", {
-  install = { colorscheme = { "tokyonight" } },
+  install = { colorscheme = { "catppuccin-mocha" } },
   checker = { enabled = true },
 })
 
