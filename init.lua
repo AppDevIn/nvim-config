@@ -41,7 +41,7 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- Auto float diagnostic on cursor hold
 vim.diagnostic.config({
-  virtual_text = true, -- inline error text on the line
+  virtual_text = true,
   signs = true,
   underline = true,
   update_in_insert = false,
