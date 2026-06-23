@@ -11,7 +11,7 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "basedpyright", "ts_ls", "vimls", "clangd" },
+        ensure_installed = { "lua_ls", "basedpyright", "ts_ls", "vimls", "clangd", "html", "cssls" },
       })
     end,
   },
@@ -32,7 +32,9 @@ return {
       vim.lsp.config("clangd", { capabilities = caps })
       vim.lsp.config("vimls", { capabilities = caps })
       vim.lsp.config("ts_ls", { capabilities = caps })
-      vim.lsp.enable({ "lua_ls", "basedpyright", "vimls", "ts_ls", "clangd" })
+      vim.lsp.config("html", { capabilities = caps })
+      vim.lsp.config("cssls", { capabilities = caps })
+      vim.lsp.enable({ "lua_ls", "basedpyright", "vimls", "ts_ls", "clangd", "html", "cssls" })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
