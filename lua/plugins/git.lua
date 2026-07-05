@@ -26,13 +26,14 @@ return {
     },
   },
   {
-    "sindrets/diffview.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "tpope/vim-fugitive",
     keys = {
-      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },
-      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
-      { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "Close diffview" },
+      { "<leader>gg", "<cmd>Git<cr>", desc = "Git status" },
+      { "<leader>gd", "<cmd>Gdiffsplit<cr>", desc = "Git diff split" },
+      { "<leader>gh", "<cmd>0Gclog<cr>", desc = "File history" },
+      { "<leader>gc", "<cmd>Git commit<cr>", desc = "Git commit" },
+      { "<leader>gP", "<cmd>Git push<cr>", desc = "Git push" },
+      { "<leader>gl", "<cmd>Git pull<cr>", desc = "Git pull" },
     },
-    opts = {},
   },
 }
