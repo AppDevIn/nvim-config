@@ -28,7 +28,7 @@ return {
   {
     "tpope/vim-fugitive",
     keys = {
-      { "<leader>gg", "<cmd>Git<cr>", desc = "Git status" },
+      { "<leader>gg", "<cmd>vertical Git<cr>", desc = "Git status" },
       { "<leader>gd", "<cmd>Gdiffsplit<cr>", desc = "Git diff split" },
       { "<leader>gh", "<cmd>0Gclog<cr>", desc = "File history" },
       { "<leader>gc", "<cmd>Git commit<cr>", desc = "Git commit" },
