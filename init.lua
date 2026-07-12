@@ -66,8 +66,10 @@ vim.o.updatetime = 500
 vim.o.exrc = true
 
 require("lazy").setup("plugins", {
-  install = { colorscheme = { "catppuccin-mocha" } },
+  install = { colorscheme = { "custom" } },
   checker = { enabled = true },
 })
+
+vim.cmd.colorscheme("custom")
 
 require("vim-options")
