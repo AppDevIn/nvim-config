@@ -40,7 +40,17 @@ return {
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Find references" })
+      vim.keymap.set("n", "gr", function()
+        for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
+            if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "qf" then
+              vim.api.nvim_win_close(win, false)
+              return
+            end
+          end
+        end
+        vim.lsp.buf.references()
+      end, { desc = "Toggle references" })
       vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })

@@ -17,3 +17,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.softtabstop = 4
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function(args)
+    vim.keymap.set("n", "q", "<cmd>cclose<cr>", { buffer = args.buf, desc = "Close quickfix" })
+  end,
+})
