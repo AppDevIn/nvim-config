@@ -4,6 +4,7 @@ return {
   lazy = false,
   keys = {
     { "<C-t>", function() Snacks.terminal.toggle() end, desc = "Toggle floating terminal" },
+    { "<leader>fp", function() Snacks.picker.projects() end, desc = "Find projects" },
   },
   ---@type snacks.Config
   opts = {
@@ -15,7 +16,7 @@ return {
     explorer = { enabled = false },
     indent = { enabled = true },
     input = { enabled = false },
-    picker = { enabled = false },
+    picker = { enabled = true },
     notifier = { enabled = false },
     quickfile = { enabled = false },
     scope = { enabled = true },
