@@ -29,6 +29,7 @@ return {
       vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
 
       require("dap.python")
+      require("dap.java")
     end,
   },
 }

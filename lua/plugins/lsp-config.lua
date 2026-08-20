@@ -11,7 +11,7 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "ts_ls", "vimls", "clangd", "html", "cssls" },
+        ensure_installed = { "lua_ls", "pyright", "ts_ls", "vimls", "clangd", "html", "cssls", "jdtls" },
       })
     end,
   },
@@ -34,7 +34,50 @@ return {
       vim.lsp.config("ts_ls", { capabilities = caps })
       vim.lsp.config("html", { capabilities = caps })
       vim.lsp.config("cssls", { capabilities = caps })
-      vim.lsp.enable({ "lua_ls", "pyright", "vimls", "ts_ls", "clangd", "html", "cssls" })
+
+      --  Java
+      local mason_pkgs = vim.fn.stdpath("data") .. "/mason/packages"
+      local java_test = mason_pkgs .. "/java-test/extension/server/"
+
+      -- OSGi resolves each bundle as it is installed, so dependencies must be listed
+      -- before the bundles that need them. asm 9.9 comes first because java-test 0.43
+      -- requires asm [9.9,9.10) while jdtls 1.60 ships 9.10.1; these jars are patched
+      -- copies from Maven Central, see ~/.local/share/nvim/jdtls-bundles.
+      local bundles = vim.fn.glob(vim.fn.stdpath("data") .. "/jdtls-bundles/*.jar", true, true)
+      vim.list_extend(
+        bundles,
+        vim.fn.glob(mason_pkgs .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true, true)
+      )
+
+      -- Everything in java-test except the two jars that are not OSGi bundles: a
+      -- single failure there aborts the whole bundle load. The test plugin goes last
+      -- because it Require-Bundles the JUnit runtimes above it.
+      local test_plugin = vim.fn.glob(java_test .. "com.microsoft.java.test.plugin-*.jar", true, true)
+      for _, jar in ipairs(vim.fn.glob(java_test .. "*.jar", true, true)) do
+        local name = vim.fn.fnamemodify(jar, ":t")
+        local skip = name:match("^com%.microsoft%.java%.test%.plugin")
+          or name == "com.microsoft.java.test.runner-jar-with-dependencies.jar"
+          or name == "jacocoagent.jar"
+        if not skip then
+          table.insert(bundles, jar)
+        end
+      end
+      vim.list_extend(bundles, test_plugin)
+
+      vim.lsp.config("jdtls", {
+        capabilities = caps,
+        init_options = { bundles = bundles },
+        settings = {
+          java = {
+            saveActions = { organizeImports = true },
+            signatureHelp = { enabled = true },
+            inlayHints = { parameterNames = { enabled = "all" } },
+            configuration = { updateBuildConfiguration = "automatic" },
+          },
+        },
+      })
+
+      vim.lsp.enable({ "lua_ls", "pyright", "vimls", "ts_ls", "clangd", "html", "cssls", "jdtls" })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
